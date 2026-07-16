@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kongari Uday Krishna | Portfolio</title>
+    <!-- Favicon Initials SVG -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23EC4899%22>UK</text></svg>">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind & FontAwesome -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            pink: '#F8BBD0',
+                            rose: '#EC4899',
+                            lavender: '#EDE9FE',
+                            purple: '#A855F7',
+                            dark: '#1F2937',
+                        }
+                    },
+                    fontFamily: {
+                        header: ['Space Grotesk', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            overflow: hidden;
+            background: #ffffff;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Horizontal Scroll Container */
+        .horizontal-container {
+            display: flex;
+            width: 600vw;
+            height: 100vh;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .horizontal-container::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        section {
+            width: 100vw;
+            height: 100vh;
+            flex-shrink: 0;
+            scroll-snap-align: start;
+            padding: 4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Custom Cursor */
+        .cursor-glow {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(168, 85, 247, 0) 70%);
+            position: fixed;
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            transition: 0.1s ease-out;
+        }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+
+        .active .reveal {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(236, 72, 153, 0.1);
+        }
+
+        .blob {
+            position: absolute;
+            z-index: 0;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            0% { transform: translate(0, 0) scale(1); }
+            100% { transform: translate(50px, 50px) scale(1.1); }
+        }
+
+        /* Nav Indicators */
+        .nav-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: #E5E7EB;
+            transition: all 0.3s;
+        }
+        .nav-dot.active {
+            background: #EC4899;
+            width: 30px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="cursor-glow" id="glow"></div>
+
+    <!-- Navigation Overlay -->
+    <nav class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex space-x-4 glass p-3 rounded-full">
+        <button onclick="scrollToSection(0)" class="nav-dot active" data-index="0"></button>
+        <button onclick="scrollToSection(1)" class="nav-dot" data-index="1"></button>
+        <button onclick="scrollToSection(2)" class="nav-dot" data-index="2"></button>
+        <button onclick="scrollToSection(3)" class="nav-dot" data-index="3"></button>
+        <button onclick="scrollToSection(4)" class="nav-dot" data-index="4"></button>
+        <button onclick="scrollToSection(5)" class="nav-dot" data-index="5"></button>
+    </nav>
+
+    <div class="fixed top-8 left-8 z-50 font-header font-bold text-xl text-brand-dark">
+        <span class="text-brand-rose">UK</span>.
+    </div>
+
+    <div class="horizontal-container" id="container">
+        
+        <!-- SECTION 0: Hero -->
+        <section id="hero" class="active bg-white">
+            <div class="blob w-96 h-96 bg-brand-pink top-20 left-20"></div>
+            <div class="blob w-80 h-80 bg-brand-lavender bottom-20 right-20" style="animation-delay: -5s"></div>
+            
+            <div class="max-w-5xl text-center relative z-10">
+                <span class="font-header tracking-widest text-brand-rose font-bold reveal uppercase text-sm">Welcome to my space</span>
+                <h1 class="font-header text-7xl md:text-9xl text-brand-dark mt-4 font-bold reveal" style="transition-delay: 0.2s">
+                    Kongari <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose to-brand-purple">Uday Krishna</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-500 mt-8 max-w-2xl mx-auto font-light reveal" style="transition-delay: 0.4s">
+                    Computer Science Student passionate about <span id="typing" class="text-brand-purple font-semibold"></span>
+                </p>
+                <div class="mt-12 flex justify-center space-x-6 reveal" style="transition-delay: 0.6s">
+                    <button onclick="scrollToSection(2)" class="bg-brand-rose text-white px-8 py-4 rounded-xl font-header font-bold shadow-lg shadow-brand-rose/20 hover:scale-105 transition-transform">Explore My Work</button>
+                    <a href="mailto:udaykongari26@gmail.com" class="border border-brand-rose/20 px-8 py-4 rounded-xl font-header font-bold text-brand-dark hover:bg-brand-pink/10 transition-colors">Contact Me</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 1: About -->
+        <section id="about" class="bg-gray-50">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-6xl relative z-10">
+                <div class="reveal">
+                    <h2 class="font-header text-5xl font-bold text-brand-dark">The <span class="text-brand-rose">Persona</span></h2>
+                    <p class="mt-8 text-lg text-gray-600 leading-relaxed">
+                        I am a highly motivated Computer Science Engineering student based in Hyderabad. My expertise lies in bridging the gap between structured backend workflows and modern component-driven interfaces.
+                    </p>
+                    <p class="mt-4 text-lg text-gray-600 leading-relaxed">
+                        Continuous learning drives me—whether it's mastering Artificial Intelligence fundamentals or architecting scalable web solutions with Python and React.
+                    </p>
+                    <div class="mt-10 grid grid-cols-2 gap-4">
+                        <div class="glass p-6 rounded-2xl border-l-4 border-brand-rose">
+                            <h4 class="text-brand-rose font-bold text-2xl font-header">7.4</h4>
+                            <p class="text-sm text-gray-500 uppercase tracking-tighter">B.Tech CGPA</p>
+                        </div>
+                        <div class="glass p-6 rounded-2xl border-l-4 border-brand-purple">
+                            <h4 class="text-brand-purple font-bold text-2xl font-header">81%</h4>
+                            <p class="text-sm text-gray-500 uppercase tracking-tighter">Intermediate</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s">
+                    <h3 class="font-header text-2xl font-bold mb-6 text-brand-dark">Technical Arsenal</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <!-- Categorized Tags -->
+                        <div class="w-full text-xs font-bold text-brand-rose uppercase tracking-widest mb-2">Languages</div>
+                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Python</span>
+                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">JavaScript</span>
+                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Java</span>
+                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">C</span>
+                        
+                        <div class="w-full text-xs font-bold text-brand-purple uppercase tracking-widest mt-4 mb-2">Frameworks & Tools</div>
+                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">React 18</span>
+                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Flask</span>
+                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Tailwind CSS</span>
+                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Power BI</span>
+                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Git</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 2: Projects 1 -->
+        <section id="projects-1" class="bg-white">
+            <div class="max-w-6xl w-full">
+                <div class="flex items-center justify-between mb-12 reveal">
+                    <h2 class="font-header text-5xl font-bold text-brand-dark">Featured <span class="text-brand-rose">Engineering</span></h2>
+                    <div class="text-brand-purple font-bold">Slide 01/02</div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Project Card: Pitch Hub -->
+                    <div class="group relative bg-brand-lavender/30 rounded-3xl p-10 reveal overflow-hidden hover:shadow-2xl transition-all" style="transition-delay: 0.1s">
+                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-rose/10 rounded-full group-hover:scale-150 transition-transform"></div>
+                        <h3 class="font-header text-3xl font-bold mb-4">Pitch Hub</h3>
+                        <p class="text-gray-600 mb-6 line-clamp-3">Celebrity collaboration platform connecting influencers and brands with AI-driven discovery and analytics dashboards.</p>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">React 18</span>
+                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">TypeScript</span>
+                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">Recharts</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://pitchhub-iota.vercel.app/" target="_blank" class="text-brand-rose font-bold flex items-center hover:translate-x-2 transition-transform">Demo <i class="fa-solid fa-arrow-right ml-2 text-xs"></i></a>
+                            <a href="https://github.com/udavkrishna-26" target="_blank" class="text-brand-dark font-bold hover:opacity-70"><i class="fa-brands fa-github text-xl"></i></a>
+                        </div>
+                    </div>
+                    <!-- Project Card: Crop Recommendation -->
+                    <div class="group relative bg-brand-pink/20 rounded-3xl p-10 reveal overflow-hidden hover:shadow-2xl transition-all" style="transition-delay: 0.3s">
+                        <h3 class="font-header text-3xl font-bold mb-4">Crop AI System</h3>
+                        <p class="text-gray-600 mb-6 line-clamp-3">Multilingual decision support engine recommending optimal crops based on soil and weather RESTful data.</p>
+                        <div class="flex flex-wrap gap-2 mb-8">
+                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">Python</span>
+                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">Flask</span>
+                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">Jinja</span>
+                        </div>
+                        <div class="flex space-x-4">
+                            <a href="https://crop-recommendation-system-os41.onrender.com" target="_blank" class="text-brand-rose font-bold flex items-center hover:translate-x-2 transition-transform">Live Link <i class="fa-solid fa-arrow-right ml-2 text-xs"></i></a>
+                            <a href="https://github.com/udavkrishna-26" target="_blank" class="text-brand-dark font-bold"><i class="fa-brands fa-github text-xl"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 3: Projects 2 / Education -->
+        <section id="academic" class="bg-brand-lavender/10">
+            <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-16">
+                <div class="reveal">
+                    <h3 class="font-header text-4xl font-bold mb-10">Knowledge <span class="text-brand-purple">Vault</span></h3>
+                    <div class="glass p-8 rounded-3xl mb-8">
+                        <h4 class="font-header text-xl font-bold mb-2">Know Vault Platform</h4>
+                        <p class="text-sm text-gray-500 mb-6 leading-relaxed">Centralized academic repository designed for student collaboration, peer-to-peer sharing, and curriculum-structured discovery.</p>
+                        <div class="flex items-center text-xs text-gray-400">
+                            <i class="fa-solid fa-microchip mr-2"></i> Web Platform Design • UI/UX Prototyping
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <a href="https://github.com/udavkrishna-26" target="_blank" class="bg-brand-dark text-white p-4 rounded-full w-12 h-12 flex items-center justify-center hover:bg-brand-rose transition-colors"><i class="fa-brands fa-github"></i></a>
+                        <span class="text-xs font-bold uppercase tracking-widest text-gray-400">View Repositories</span>
+                    </div>
+                </div>
+                <div class="reveal" style="transition-delay: 0.3s">
+                    <h3 class="font-header text-4xl font-bold mb-10">Academic <span class="text-brand-rose">Journey</span></h3>
+                    <div class="space-y-8 relative">
+                        <div class="absolute left-1.5 top-2 bottom-2 w-0.5 bg-brand-rose/20"></div>
+                        <div class="relative pl-8">
+                            <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-brand-rose shadow-[0_0_10px_#EC4899]"></div>
+                            <h4 class="font-bold text-brand-dark">B.Tech - Computer Science</h4>
+                            <p class="text-sm text-gray-500">Geethanjali College of Engineering • 2023-Present</p>
+                            <p class="text-xs font-bold text-brand-rose mt-1">CGPA: 7.4</p>
+                        </div>
+                        <div class="relative pl-8">
+                            <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-300"></div>
+                            <h4 class="font-bold text-brand-dark text-sm">Intermediate (MPC)</h4>
+                            <p class="text-sm text-gray-500">Sree Sanjeevni Junior College • 81%</p>
+                        </div>
+                        <div class="relative pl-8">
+                            <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-300"></div>
+                            <h4 class="font-bold text-brand-dark text-sm">ICSE (Class X)</h4>
+                            <p class="text-sm text-gray-500">Sacred Heart Convent • 81%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 4: Certificates / Social -->
+        <section id="certifications" class="bg-white">
+            <div class="max-w-6xl w-full">
+                <h2 class="font-header text-5xl font-bold mb-16 reveal text-center">Industry <span class="text-brand-rose">Validation</span></h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal" style="transition-delay: 0.2s">
+                    <div class="glass p-6 rounded-2xl hover:-translate-y-2 transition-transform">
+                        <i class="fa-solid fa-chart-line text-brand-purple text-2xl mb-4"></i>
+                        <h4 class="font-bold text-sm">Power BI Data Analyst</h4>
+                        <p class="text-[10px] uppercase text-gray-400 mt-2">Microsoft / NASSCOM</p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl hover:-translate-y-2 transition-transform">
+                        <i class="fa-brands fa-python text-brand-rose text-2xl mb-4"></i>
+                        <h4 class="font-bold text-sm">Python Essentials</h4>
+                        <p class="text-[10px] uppercase text-gray-400 mt-2">Cisco / Python Institute</p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl hover:-translate-y-2 transition-transform">
+                        <i class="fa-solid fa-database text-brand-purple text-2xl mb-4"></i>
+                        <h4 class="font-bold text-sm">Data Science Beginner</h4>
+                        <p class="text-[10px] uppercase text-gray-400 mt-2">Board Infinity</p>
+                    </div>
+                    <div class="glass p-6 rounded-2xl hover:-translate-y-2 transition-transform">
+                        <i class="fa-solid fa-robot text-brand-rose text-2xl mb-4"></i>
+                        <h4 class="font-bold text-sm">AI Workshop</h4>
+                        <p class="text-[10px] uppercase text-gray-400 mt-2">IIT Hyderabad Collab</p>
+                    </div>
+                </div>
+                
+                <div class="mt-20 flex flex-col items-center reveal" style="transition-delay: 0.4s">
+                    <p class="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 mb-6">Coding Ecosystem</p>
+                    <div class="flex space-x-12">
+                        <a href="https://github.com/udavkrishna-26" target="_blank" class="text-4xl text-brand-dark hover:text-brand-rose transition-colors"><i class="fa-brands fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/kongari-uday-krishna-40a614297/" target="_blank" class="text-4xl text-brand-dark hover:text-brand-purple transition-colors"><i class="fa-brands fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 5: Contact -->
+        <section id="contact" class="bg-brand-dark">
+            <div class="max-w-4xl w-full text-center reveal">
+                <h2 class="font-header text-6xl md:text-8xl font-bold text-white mb-8">Let's <span class="text-brand-rose">Sync</span>.</h2>
+                <p class="text-gray-400 text-xl mb-12 font-light">I'm currently looking for software engineering roles and collaborative projects.</p>
+                
+                <div class="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-12">
+                    <a href="mailto:udaykongari26@gmail.com" class="text-white hover:text-brand-rose transition-colors text-lg flex items-center">
+                        <i class="fa-regular fa-envelope mr-3 text-brand-rose"></i> udaykongari26@gmail.com
+                    </a>
+                    <a href="tel:9182305852" class="text-white hover:text-brand-rose transition-colors text-lg flex items-center">
+                        <i class="fa-solid fa-phone mr-3 text-brand-rose"></i> +91 9182305852
+                    </a>
+                </div>
+
+                <div class="mt-24 pt-12 border-t border-white/10 text-gray-500 text-xs uppercase tracking-widest">
+                    Designed & Built by Kongari Uday Krishna • 2024
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Typing Effect
+        const typingText = document.getElementById('typing');
+        const roles = ['Full Stack Development', 'Artificial Intelligence', 'Software Architecture', 'Problem Solving'];
+        let roleIdx = 0;
+        let charIdx = 0;
+        let isDeleting = false;
+
+        function type() {
+            const current = roles[roleIdx];
+            if (isDeleting) {
+                typingText.textContent = current.substring(0, charIdx - 1);
+                charIdx--;
+            } else {
+                typingText.textContent = current.substring(0, charIdx + 1);
+                charIdx++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+            if (!isDeleting && charIdx === current.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIdx === 0) {
+                isDeleting = false;
+                roleIdx = (roleIdx + 1) % roles.length;
+                typeSpeed = 500;
+            }
+            setTimeout(type, typeSpeed);
+        }
+
+        // Custom Mouse Glow
+        const glow = document.getElementById('glow');
+        document.addEventListener('mousemove', (e) => {
+            glow.style.left = e.clientX + 'px';
+            glow.style.top = e.clientY + 'px';
+        });
+
+        // Horizontal Scroll Interaction
+        const container = document.getElementById('container');
+        const sections = document.querySelectorAll('section');
+        const navDots = document.querySelectorAll('.nav-dot');
+
+        function scrollToSection(index) {
+            container.scrollTo({
+                left: window.innerWidth * index,
+                behavior: 'smooth'
+            });
+        }
+
+        container.addEventListener('scroll', () => {
+            const scrollPos = container.scrollLeft;
+            const index = Math.round(scrollPos / window.innerWidth);
+            
+            sections.forEach((s, i) => {
+                if (i === index) s.classList.add('active');
+                else s.classList.remove('active');
+            });
+
+            navDots.forEach((dot, i) => {
+                if (i === index) dot.classList.add('active');
+                else dot.classList.remove('active');
+            });
+        });
+
+        // Init
+        document.addEventListener('DOMContentLoaded', () => {
+            type();
+        });
+    </script>
+</body>
+</html>

@@ -4,426 +4,858 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kongari Uday Krishna | Portfolio</title>
-    <!-- Favicon Initials SVG -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%23EC4899%22>UK</text></svg>">
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
     
-    <!-- Tailwind & FontAwesome -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: {
-                            pink: '#F8BBD0',
-                            rose: '#EC4899',
-                            lavender: '#EDE9FE',
-                            purple: '#A855F7',
-                            dark: '#1F2937',
-                        }
-                    },
-                    fontFamily: {
-                        header: ['Space Grotesk', 'sans-serif'],
-                        body: ['Inter', 'sans-serif'],
-                    }
-                }
-            }
-        }
-    </script>
+    <!-- Chosen Palette: Rose/Coral & Lavender -->
+    <!-- Application Structure Plan: A high-performance vertical timeline journey (Archetype 4). This structure was chosen because it guides the recruiter logically through your identity, technical arsenal, major engineering projects, and academic background in a single, flowing narrative that mirrors a high-end professional resume. -->
+    <!-- Visualization & Content Choices: 
+        - Hero: Animated gradient background with typography focus (No photo). 
+        - Skills: Categorized chips with glassmorphism for quick scanning. 
+        - Projects: Alternating high-impact cards with technology tags. 
+        - Education: Vertical timeline reflecting the journey archetype. 
+        - NO SVG used for graphics. NO Mermaid JS used.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 
     <style>
-        body {
-            overflow: hidden;
-            background: #ffffff;
-            font-family: 'Inter', sans-serif;
+        :root {
+            --primary: #EC4899;
+            --secondary: #A855F7;
+            --bg-white: #FFFFFF;
+            --text-dark: #1F2937;
+            --text-muted: #6B7280;
+            --glass: rgba(255, 255, 255, 0.7);
+            --lavender: #EDE9FE;
+            --font-header: 'Space Grotesk', sans-serif;
+            --font-body: 'Inter', sans-serif;
         }
 
-        /* Horizontal Scroll Container */
-        .horizontal-container {
-            display: flex;
-            width: 600vw;
-            height: 100vh;
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
             scroll-behavior: smooth;
-            scrollbar-width: none; /* Firefox */
         }
 
-        .horizontal-container::-webkit-scrollbar {
-            display: none; /* Chrome/Safari */
+        body {
+            background-color: var(--bg-white);
+            color: var(--text-dark);
+            font-family: var(--font-body);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
-        section {
-            width: 100vw;
-            height: 100vh;
-            flex-shrink: 0;
-            scroll-snap-align: start;
-            padding: 4rem;
+        /* --- BACKGROUND SHAPES --- */
+        .blob {
+            position: fixed;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.1) 0%, rgba(168, 85, 247, 0.05) 100%);
+            border-radius: 50%;
+            z-index: -1;
+            filter: blur(80px);
+            animation: move 20s infinite alternate;
+        }
+
+        .blob-1 { top: -10%; left: -10%; }
+        .blob-2 { bottom: -10%; right: -10%; animation-delay: -5s; }
+
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(100px, 100px) scale(1.2); }
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1.5rem 10%;
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-family: var(--font-header);
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--primary); }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover { color: var(--primary); }
+
+        /* --- HERO --- */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
             justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 10%;
             position: relative;
         }
 
-        /* Custom Cursor */
-        .cursor-glow {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(236, 72, 153, 0.08) 0%, rgba(168, 85, 247, 0) 70%);
-            position: fixed;
-            pointer-events: none;
-            z-index: 1;
-            transform: translate(-50%, -50%);
-            transition: 0.1s ease-out;
+        .hero h1 {
+            font-family: var(--font-header);
+            font-size: clamp(3rem, 8vw, 6rem);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
         }
 
-        /* Animations */
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin-bottom: 2.5rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.2);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(236, 72, 153, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--bg-white);
+            color: var(--text-dark);
+            border: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .btn-secondary:hover {
+            background: #f9fafb;
+            transform: translateY(-3px);
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 100px 10%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-family: var(--font-header);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 50px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* --- ABOUT --- */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .about-content { grid-template-columns: 1fr; }
+            section { padding: 60px 5%; }
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .stat-card {
+            background: var(--glass);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 1.5rem;
+            border-radius: 20px;
+            text-align: center;
+        }
+
+        .stat-card h3 {
+            font-size: 2rem;
+            color: var(--secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- SKILLS --- */
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill-category {
+            background: var(--glass);
+            border: 1px solid rgba(0,0,0,0.05);
+            padding: 2rem;
+            border-radius: 24px;
+            transition: transform 0.3s;
+        }
+
+        .skill-category:hover { transform: translateY(-5px); }
+
+        .skill-category h4 {
+            font-family: var(--font-header);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .skill-category i { color: var(--primary); }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+        }
+
+        .skill-tag {
+            background: white;
+            padding: 0.5rem 1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            border: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        /* --- PROJECTS --- */
+        .project-card {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 6rem;
+            align-items: center;
+        }
+
+        .project-card:nth-child(even) { direction: rtl; }
+        .project-card:nth-child(even) .project-info { direction: ltr; }
+
+        .project-visual {
+            background: linear-gradient(135deg, #f3f4f6 0%, #ffffff 100%);
+            height: 400px;
+            border-radius: 30px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-visual i {
+            font-size: 5rem;
+            color: rgba(236, 72, 153, 0.1);
+        }
+
+        .project-info h3 {
+            font-family: var(--font-header);
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .project-info p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .tech-pill {
+            background: var(--lavender);
+            color: var(--secondary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 992px) {
+            .project-card, .project-card:nth-child(even) {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                direction: ltr;
+            }
+            .project-visual { height: 300px; }
+        }
+
+        /* --- EDUCATION --- */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-left: 60px;
+            margin-bottom: 3rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 11px;
+            top: 5px;
+            width: 20px;
+            height: 20px;
+            background: white;
+            border: 4px solid var(--primary);
+            border-radius: 50%;
+        }
+
+        .timeline-content {
+            background: var(--glass);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.05);
+        }
+
+        .timeline-date {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* --- CERTIFICATES --- */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .cert-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 20px;
+            border: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: all 0.3s;
+        }
+
+        .cert-card:hover { border-color: var(--primary); }
+
+        .cert-card i {
+            color: var(--primary);
+            font-size: 1.5rem;
+            margin-top: 5px;
+        }
+
+        /* --- CONTACT --- */
+        .contact-box {
+            background: var(--text-dark);
+            color: white;
+            padding: 4rem;
+            border-radius: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+        }
+
+        .contact-info h2 { font-family: var(--font-header); font-size: 3rem; margin-bottom: 1.5rem; }
+
+        .contact-list { list-style: none; }
+        .contact-list li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.1rem;
+        }
+
+        .contact-list li i { color: var(--primary); }
+
+        .social-links {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 3rem;
+        }
+
+        .social-links a {
+            width: 50px;
+            height: 50px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover { background: var(--primary); transform: translateY(-5px); }
+
+        @media (max-width: 768px) {
+            .contact-box { grid-template-columns: 1fr; padding: 2rem; }
+        }
+
+        /* --- ANIMATIONS --- */
         .reveal {
             opacity: 0;
-            transform: translateY(20px);
+            transform: translateY(30px);
             transition: all 0.8s ease-out;
         }
 
-        .active .reveal {
+        .reveal.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .glass {
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(236, 72, 153, 0.1);
+        footer {
+            text-align: center;
+            padding: 3rem;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.05);
         }
 
-        .blob {
-            position: absolute;
-            z-index: 0;
-            filter: blur(80px);
-            opacity: 0.4;
-            animation: float 15s infinite alternate ease-in-out;
-        }
-
-        @keyframes float {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(50px, 50px) scale(1.1); }
-        }
-
-        /* Nav Indicators */
-        .nav-dot {
-            width: 10px;
-            height: 10px;
+        #scroll-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
             border-radius: 50%;
-            background: #E5E7EB;
-            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            opacity: 0;
+            transition: 0.3s;
+            z-index: 1000;
         }
-        .nav-dot.active {
-            background: #EC4899;
-            width: 30px;
-            border-radius: 5px;
-        }
+
+        #scroll-top.visible { opacity: 1; }
+
     </style>
 </head>
 <body>
 
-    <div class="cursor-glow" id="glow"></div>
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
 
-    <!-- Navigation Overlay -->
-    <nav class="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 flex space-x-4 glass p-3 rounded-full">
-        <button onclick="scrollToSection(0)" class="nav-dot active" data-index="0"></button>
-        <button onclick="scrollToSection(1)" class="nav-dot" data-index="1"></button>
-        <button onclick="scrollToSection(2)" class="nav-dot" data-index="2"></button>
-        <button onclick="scrollToSection(3)" class="nav-dot" data-index="3"></button>
-        <button onclick="scrollToSection(4)" class="nav-dot" data-index="4"></button>
-        <button onclick="scrollToSection(5)" class="nav-dot" data-index="5"></button>
+    <nav>
+        <a href="#" class="logo">UDAY<span>.</span></a>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#education">Education</a>
+            <a href="#contact">Contact</a>
+        </div>
     </nav>
 
-    <div class="fixed top-8 left-8 z-50 font-header font-bold text-xl text-brand-dark">
-        <span class="text-brand-rose">UK</span>.
-    </div>
+    <div id="scroll-top" onclick="window.scrollTo(0,0)"><i class="fas fa-arrow-up"></i></div>
 
-    <div class="horizontal-container" id="container">
-        
-        <!-- SECTION 0: Hero -->
-        <section id="hero" class="active bg-white">
-            <div class="blob w-96 h-96 bg-brand-pink top-20 left-20"></div>
-            <div class="blob w-80 h-80 bg-brand-lavender bottom-20 right-20" style="animation-delay: -5s"></div>
-            
-            <div class="max-w-5xl text-center relative z-10">
-                <span class="font-header tracking-widest text-brand-rose font-bold reveal uppercase text-sm">Welcome to my space</span>
-                <h1 class="font-header text-7xl md:text-9xl text-brand-dark mt-4 font-bold reveal" style="transition-delay: 0.2s">
-                    Kongari <br><span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-rose to-brand-purple">Uday Krishna</span>
-                </h1>
-                <p class="text-xl md:text-2xl text-gray-500 mt-8 max-w-2xl mx-auto font-light reveal" style="transition-delay: 0.4s">
-                    Computer Science Student passionate about <span id="typing" class="text-brand-purple font-semibold"></span>
-                </p>
-                <div class="mt-12 flex justify-center space-x-6 reveal" style="transition-delay: 0.6s">
-                    <button onclick="scrollToSection(2)" class="bg-brand-rose text-white px-8 py-4 rounded-xl font-header font-bold shadow-lg shadow-brand-rose/20 hover:scale-105 transition-transform">Explore My Work</button>
-                    <a href="mailto:udaykongari26@gmail.com" class="border border-brand-rose/20 px-8 py-4 rounded-xl font-header font-bold text-brand-dark hover:bg-brand-pink/10 transition-colors">Contact Me</a>
-                </div>
-            </div>
-        </section>
+    <!-- HERO -->
+    <header class="hero">
+        <h1 class="reveal">Kongari <span class="gradient-text">Uday Krishna</span></h1>
+        <p class="tagline reveal" style="transition-delay: 0.2s;">
+            Computer Science Engineering Student passionate about building scalable Full Stack solutions and exploring the frontiers of Artificial Intelligence.
+        </p>
+        <div class="btn-group reveal" style="transition-delay: 0.4s;">
+            <a href="#projects" class="btn btn-primary">View Projects</a>
+            <a href="#contact" class="btn btn-secondary">Contact Me</a>
+        </div>
+    </header>
 
-        <!-- SECTION 1: About -->
-        <section id="about" class="bg-gray-50">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-6xl relative z-10">
-                <div class="reveal">
-                    <h2 class="font-header text-5xl font-bold text-brand-dark">The <span class="text-brand-rose">Persona</span></h2>
-                    <p class="mt-8 text-lg text-gray-600 leading-relaxed">
-                        I am a highly motivated Computer Science Engineering student based in Hyderabad. My expertise lies in bridging the gap between structured backend workflows and modern component-driven interfaces.
-                    </p>
-                    <p class="mt-4 text-lg text-gray-600 leading-relaxed">
-                        Continuous learning drives me—whether it's mastering Artificial Intelligence fundamentals or architecting scalable web solutions with Python and React.
-                    </p>
-                    <div class="mt-10 grid grid-cols-2 gap-4">
-                        <div class="glass p-6 rounded-2xl border-l-4 border-brand-rose">
-                            <h4 class="text-brand-rose font-bold text-2xl font-header">7.4</h4>
-                            <p class="text-sm text-gray-500 uppercase tracking-tighter">B.Tech CGPA</p>
-                        </div>
-                        <div class="glass p-6 rounded-2xl border-l-4 border-brand-purple">
-                            <h4 class="text-brand-purple font-bold text-2xl font-header">81%</h4>
-                            <p class="text-sm text-gray-500 uppercase tracking-tighter">Intermediate</p>
-                        </div>
+    <!-- ABOUT -->
+    <section id="about">
+        <h2 class="section-title reveal">About Me</h2>
+        <div class="about-content">
+            <div class="about-text reveal">
+                <p>I am a highly motivated Computer Science student at Geethanjali College of Engineering, specializing in architecting modern web experiences and intelligent systems.</p>
+                <p>My approach combines the efficiency of Python-based backend architectures with the interactivity of modern JavaScript frameworks. I thrive on solving real-world problems through clean, maintainable code and user-centric design.</p>
+                <div class="stat-grid">
+                    <div class="stat-card">
+                        <h3>7.4</h3>
+                        <p>Current CGPA</p>
                     </div>
-                </div>
-                <div class="reveal" style="transition-delay: 0.3s">
-                    <h3 class="font-header text-2xl font-bold mb-6 text-brand-dark">Technical Arsenal</h3>
-                    <div class="flex flex-wrap gap-3">
-                        <!-- Categorized Tags -->
-                        <div class="w-full text-xs font-bold text-brand-rose uppercase tracking-widest mb-2">Languages</div>
-                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Python</span>
-                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">JavaScript</span>
-                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Java</span>
-                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">C</span>
-                        
-                        <div class="w-full text-xs font-bold text-brand-purple uppercase tracking-widest mt-4 mb-2">Frameworks & Tools</div>
-                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">React 18</span>
-                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Flask</span>
-                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Tailwind CSS</span>
-                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Power BI</span>
-                        <span class="glass px-4 py-2 rounded-lg text-sm font-semibold">Git</span>
+                    <div class="stat-card">
+                        <h3>10+</h3>
+                        <p>Tech Arsenal</p>
                     </div>
                 </div>
             </div>
-        </section>
+            <div class="about-visual reveal" style="transition-delay: 0.3s;">
+                <canvas id="aboutCanvas" width="400" height="300" style="width: 100%; border-radius: 24px; background: var(--lavender);"></canvas>
+            </div>
+        </div>
+    </section>
 
-        <!-- SECTION 2: Projects 1 -->
-        <section id="projects-1" class="bg-white">
-            <div class="max-w-6xl w-full">
-                <div class="flex items-center justify-between mb-12 reveal">
-                    <h2 class="font-header text-5xl font-bold text-brand-dark">Featured <span class="text-brand-rose">Engineering</span></h2>
-                    <div class="text-brand-purple font-bold">Slide 01/02</div>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Project Card: Pitch Hub -->
-                    <div class="group relative bg-brand-lavender/30 rounded-3xl p-10 reveal overflow-hidden hover:shadow-2xl transition-all" style="transition-delay: 0.1s">
-                        <div class="absolute -right-10 -top-10 w-40 h-40 bg-brand-rose/10 rounded-full group-hover:scale-150 transition-transform"></div>
-                        <h3 class="font-header text-3xl font-bold mb-4">Pitch Hub</h3>
-                        <p class="text-gray-600 mb-6 line-clamp-3">Celebrity collaboration platform connecting influencers and brands with AI-driven discovery and analytics dashboards.</p>
-                        <div class="flex flex-wrap gap-2 mb-8">
-                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">React 18</span>
-                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">TypeScript</span>
-                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">Recharts</span>
-                        </div>
-                        <div class="flex space-x-4">
-                            <a href="https://pitchhub-iota.vercel.app/" target="_blank" class="text-brand-rose font-bold flex items-center hover:translate-x-2 transition-transform">Demo <i class="fa-solid fa-arrow-right ml-2 text-xs"></i></a>
-                            <a href="https://github.com/udavkrishna-26" target="_blank" class="text-brand-dark font-bold hover:opacity-70"><i class="fa-brands fa-github text-xl"></i></a>
-                        </div>
-                    </div>
-                    <!-- Project Card: Crop Recommendation -->
-                    <div class="group relative bg-brand-pink/20 rounded-3xl p-10 reveal overflow-hidden hover:shadow-2xl transition-all" style="transition-delay: 0.3s">
-                        <h3 class="font-header text-3xl font-bold mb-4">Crop AI System</h3>
-                        <p class="text-gray-600 mb-6 line-clamp-3">Multilingual decision support engine recommending optimal crops based on soil and weather RESTful data.</p>
-                        <div class="flex flex-wrap gap-2 mb-8">
-                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">Python</span>
-                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">Flask</span>
-                            <span class="text-xs font-bold bg-white/60 px-3 py-1 rounded-full">Jinja</span>
-                        </div>
-                        <div class="flex space-x-4">
-                            <a href="https://crop-recommendation-system-os41.onrender.com" target="_blank" class="text-brand-rose font-bold flex items-center hover:translate-x-2 transition-transform">Live Link <i class="fa-solid fa-arrow-right ml-2 text-xs"></i></a>
-                            <a href="https://github.com/udavkrishna-26" target="_blank" class="text-brand-dark font-bold"><i class="fa-brands fa-github text-xl"></i></a>
-                        </div>
-                    </div>
+    <!-- SKILLS -->
+    <section id="skills">
+        <h2 class="section-title reveal">Technical Arsenal</h2>
+        <div class="skills-container">
+            <div class="skill-category reveal">
+                <h4><i class="fas fa-code"></i> Programming</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">JavaScript</span>
+                    <span class="skill-tag">Java</span>
+                    <span class="skill-tag">C</span>
                 </div>
             </div>
-        </section>
-
-        <!-- SECTION 3: Projects 2 / Education -->
-        <section id="academic" class="bg-brand-lavender/10">
-            <div class="max-w-6xl w-full grid grid-cols-1 md:grid-cols-2 gap-16">
-                <div class="reveal">
-                    <h3 class="font-header text-4xl font-bold mb-10">Knowledge <span class="text-brand-purple">Vault</span></h3>
-                    <div class="glass p-8 rounded-3xl mb-8">
-                        <h4 class="font-header text-xl font-bold mb-2">Know Vault Platform</h4>
-                        <p class="text-sm text-gray-500 mb-6 leading-relaxed">Centralized academic repository designed for student collaboration, peer-to-peer sharing, and curriculum-structured discovery.</p>
-                        <div class="flex items-center text-xs text-gray-400">
-                            <i class="fa-solid fa-microchip mr-2"></i> Web Platform Design • UI/UX Prototyping
-                        </div>
-                    </div>
-                    <div class="flex items-center space-x-6">
-                        <a href="https://github.com/udavkrishna-26" target="_blank" class="bg-brand-dark text-white p-4 rounded-full w-12 h-12 flex items-center justify-center hover:bg-brand-rose transition-colors"><i class="fa-brands fa-github"></i></a>
-                        <span class="text-xs font-bold uppercase tracking-widest text-gray-400">View Repositories</span>
-                    </div>
-                </div>
-                <div class="reveal" style="transition-delay: 0.3s">
-                    <h3 class="font-header text-4xl font-bold mb-10">Academic <span class="text-brand-rose">Journey</span></h3>
-                    <div class="space-y-8 relative">
-                        <div class="absolute left-1.5 top-2 bottom-2 w-0.5 bg-brand-rose/20"></div>
-                        <div class="relative pl-8">
-                            <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-brand-rose shadow-[0_0_10px_#EC4899]"></div>
-                            <h4 class="font-bold text-brand-dark">B.Tech - Computer Science</h4>
-                            <p class="text-sm text-gray-500">Geethanjali College of Engineering • 2023-Present</p>
-                            <p class="text-xs font-bold text-brand-rose mt-1">CGPA: 7.4</p>
-                        </div>
-                        <div class="relative pl-8">
-                            <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-300"></div>
-                            <h4 class="font-bold text-brand-dark text-sm">Intermediate (MPC)</h4>
-                            <p class="text-sm text-gray-500">Sree Sanjeevni Junior College • 81%</p>
-                        </div>
-                        <div class="relative pl-8">
-                            <div class="absolute left-0 top-1.5 w-3 h-3 rounded-full bg-gray-300"></div>
-                            <h4 class="font-bold text-brand-dark text-sm">ICSE (Class X)</h4>
-                            <p class="text-sm text-gray-500">Sacred Heart Convent • 81%</p>
-                        </div>
-                    </div>
+            <div class="skill-category reveal" style="transition-delay: 0.1s;">
+                <h4><i class="fas fa-layer-group"></i> Frameworks & Web</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">React 18</span>
+                    <span class="skill-tag">Flask</span>
+                    <span class="skill-tag">Tailwind CSS</span>
+                    <span class="skill-tag">HTML5/CSS3</span>
+                    <span class="skill-tag">Jinja Templates</span>
                 </div>
             </div>
-        </section>
-
-        <!-- SECTION 4: Certificates / Social -->
-        <section id="certifications" class="bg-white">
-            <div class="max-w-6xl w-full">
-                <h2 class="font-header text-5xl font-bold mb-16 reveal text-center">Industry <span class="text-brand-rose">Validation</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 reveal" style="transition-delay: 0.2s">
-                    <div class="glass p-6 rounded-2xl hover:-translate-y-2 transition-transform">
-                        <i class="fa-solid fa-chart-line text-brand-purple text-2xl mb-4"></i>
-                        <h4 class="font-bold text-sm">Power BI Data Analyst</h4>
-                        <p class="text-[10px] uppercase text-gray-400 mt-2">Microsoft / NASSCOM</p>
-                    </div>
-                    <div class="glass p-6 rounded-2xl hover:-translate-y-2 transition-transform">
-                        <i class="fa-brands fa-python text-brand-rose text-2xl mb-4"></i>
-                        <h4 class="font-bold text-sm">Python Essentials</h4>
-                        <p class="text-[10px] uppercase text-gray-400 mt-2">Cisco / Python Institute</p>
-                    </div>
-                    <div class="glass p-6 rounded-2xl hover:-translate-y-2 transition-transform">
-                        <i class="fa-solid fa-database text-brand-purple text-2xl mb-4"></i>
-                        <h4 class="font-bold text-sm">Data Science Beginner</h4>
-                        <p class="text-[10px] uppercase text-gray-400 mt-2">Board Infinity</p>
-                    </div>
-                    <div class="glass p-6 rounded-2xl hover:-translate-y-2 transition-transform">
-                        <i class="fa-solid fa-robot text-brand-rose text-2xl mb-4"></i>
-                        <h4 class="font-bold text-sm">AI Workshop</h4>
-                        <p class="text-[10px] uppercase text-gray-400 mt-2">IIT Hyderabad Collab</p>
-                    </div>
-                </div>
-                
-                <div class="mt-20 flex flex-col items-center reveal" style="transition-delay: 0.4s">
-                    <p class="text-xs font-bold uppercase tracking-[0.3em] text-gray-400 mb-6">Coding Ecosystem</p>
-                    <div class="flex space-x-12">
-                        <a href="https://github.com/udavkrishna-26" target="_blank" class="text-4xl text-brand-dark hover:text-brand-rose transition-colors"><i class="fa-brands fa-github"></i></a>
-                        <a href="https://www.linkedin.com/in/kongari-uday-krishna-40a614297/" target="_blank" class="text-4xl text-brand-dark hover:text-brand-purple transition-colors"><i class="fa-brands fa-linkedin"></i></a>
-                    </div>
+            <div class="skill-category reveal" style="transition-delay: 0.2s;">
+                <h4><i class="fas fa-tools"></i> Developer Tools</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Git & GitHub</span>
+                    <span class="skill-tag">REST APIs</span>
+                    <span class="skill-tag">Vite</span>
+                    <span class="skill-tag">TypeScript</span>
+                    <span class="skill-tag">Power BI</span>
                 </div>
             </div>
-        </section>
-
-        <!-- SECTION 5: Contact -->
-        <section id="contact" class="bg-brand-dark">
-            <div class="max-w-4xl w-full text-center reveal">
-                <h2 class="font-header text-6xl md:text-8xl font-bold text-white mb-8">Let's <span class="text-brand-rose">Sync</span>.</h2>
-                <p class="text-gray-400 text-xl mb-12 font-light">I'm currently looking for software engineering roles and collaborative projects.</p>
-                
-                <div class="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 md:space-x-12">
-                    <a href="mailto:udaykongari26@gmail.com" class="text-white hover:text-brand-rose transition-colors text-lg flex items-center">
-                        <i class="fa-regular fa-envelope mr-3 text-brand-rose"></i> udaykongari26@gmail.com
-                    </a>
-                    <a href="tel:9182305852" class="text-white hover:text-brand-rose transition-colors text-lg flex items-center">
-                        <i class="fa-solid fa-phone mr-3 text-brand-rose"></i> +91 9182305852
-                    </a>
-                </div>
-
-                <div class="mt-24 pt-12 border-t border-white/10 text-gray-500 text-xs uppercase tracking-widest">
-                    Designed & Built by Kongari Uday Krishna • 2024
+            <div class="skill-category reveal" style="transition-delay: 0.3s;">
+                <h4><i class="fas fa-brain"></i> Core Concepts</h4>
+                <div class="skill-tags">
+                    <span class="skill-tag">Data Structures</span>
+                    <span class="skill-tag">AI Fundamentals</span>
+                    <span class="skill-tag">UI/UX Prototyping</span>
+                    <span class="skill-tag">Problem Solving</span>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-    </div>
+    <!-- PROJECTS -->
+    <section id="projects">
+        <h2 class="section-title reveal">Engineering Projects</h2>
+
+        <!-- Project 1 -->
+        <div class="project-card reveal">
+            <div class="project-visual">
+                <i class="fas fa-users-rectangle"></i>
+            </div>
+            <div class="project-info">
+                <div class="tech-stack">
+                    <span class="tech-pill">React 18</span>
+                    <span class="tech-pill">TypeScript</span>
+                    <span class="tech-pill">Tailwind CSS</span>
+                    <span class="tech-pill">Recharts</span>
+                </div>
+                <h3>Pitch Hub</h3>
+                <p>A full-stack networking platform connecting influencers, brands, and film industry professionals. Features AI-driven discovery for brand matching and real-time analytics dashboards for tracking campaign engagement.</p>
+                <div class="btn-group">
+                    <a href="https://github.com/udavkrishna-26" target="_blank" class="btn btn-secondary">GitHub</a>
+                    <a href="https://pitchhub-iota.vercel.app/" target="_blank" class="btn btn-primary">Live Demo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="project-card reveal">
+            <div class="project-visual">
+                <i class="fas fa-seedling"></i>
+            </div>
+            <div class="project-info">
+                <div class="tech-stack">
+                    <span class="tech-pill">Python</span>
+                    <span class="tech-pill">Flask</span>
+                    <span class="tech-pill">REST APIs</span>
+                    <span class="tech-pill">Jinja</span>
+                </div>
+                <h3>Intelligent Crop AI</h3>
+                <p>Web-based decision support system recommending optimal crops and fertilizers. Implemented a rule-based engine analyzing soil and weather parameters with a multilingual interface support for English, Hindi, and Telugu.</p>
+                <div class="btn-group">
+                    <a href="https://github.com/udavkrishna-26" target="_blank" class="btn btn-secondary">GitHub</a>
+                    <a href="https://crop-recommendation-system-os41.onrender.com" target="_blank" class="btn btn-primary">Live Demo</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="project-card reveal">
+            <div class="project-visual">
+                <i class="fas fa-vault"></i>
+            </div>
+            <div class="project-info">
+                <div class="tech-stack">
+                    <span class="tech-pill">Web Platform</span>
+                    <span class="tech-pill">UI/UX</span>
+                    <span class="tech-pill">Collaboration</span>
+                </div>
+                <h3>Know Vault</h3>
+                <p>A centralized academic repository enabling students to store and share notes, lecture slides, and textbooks. Features structured academic hierarchy and collaborative discussion forums for peer learning.</p>
+                <div class="btn-group">
+                    <a href="https://github.com/udavkrishna-26" target="_blank" class="btn btn-secondary">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EDUCATION -->
+    <section id="education">
+        <h2 class="section-title reveal">Academic Journey</h2>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <p class="timeline-date">2023 - Ongoing</p>
+                    <h4>B.Tech in Computer Science Engineering</h4>
+                    <p>Geethanjali College of Engineering and Technology</p>
+                    <p style="font-weight: 700; margin-top: 5px;">CGPA: 7.4</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <p class="timeline-date">2021 - 2023</p>
+                    <h4>Intermediate (MPC)</h4>
+                    <p>Sree Sanjeevni Junior College</p>
+                    <p style="font-weight: 700; margin-top: 5px;">Percentage: 81%</p>
+                </div>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <p class="timeline-date">2020 - 2021</p>
+                    <h4>ICSE (Class X)</h4>
+                    <p>Sacred Heart Convent School</p>
+                    <p style="font-weight: 700; margin-top: 5px;">Percentage: 81%</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CERTIFICATES -->
+    <section id="certificates">
+        <h2 class="section-title reveal">Certifications</h2>
+        <div class="cert-grid">
+            <div class="cert-card reveal">
+                <i class="fas fa-certificate"></i>
+                <div>
+                    <h4>Power BI Analyst</h4>
+                    <p>Microsoft / NASSCOM</p>
+                </div>
+            </div>
+            <div class="cert-card reveal" style="transition-delay: 0.1s;">
+                <i class="fas fa-certificate"></i>
+                <div>
+                    <h4>Python Essentials</h4>
+                    <p>Cisco Networking Academy</p>
+                </div>
+            </div>
+            <div class="cert-card reveal" style="transition-delay: 0.2s;">
+                <i class="fas fa-certificate"></i>
+                <div>
+                    <h4>Data Science Beginner</h4>
+                    <p>Board Infinity</p>
+                </div>
+            </div>
+            <div class="cert-card reveal" style="transition-delay: 0.3s;">
+                <i class="fas fa-certificate"></i>
+                <div>
+                    <h4>AI Workshop</h4>
+                    <p>IIT Hyderabad Collab</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <div class="contact-box reveal">
+            <div class="contact-info">
+                <h2>Let's connect.</h2>
+                <ul class="contact-list">
+                    <li><i class="fas fa-envelope"></i> udaykongari26@gmail.com</li>
+                    <li><i class="fas fa-phone"></i> +91 9182305852</li>
+                    <li><i class="fas fa-location-dot"></i> Hyderabad, India</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://github.com/udavkrishna-26" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.linkedin.com/in/kongari-uday-krishna-40a614297/" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.05); border-radius: 30px; display: flex; align-items: center; justify-content: center; padding: 2rem;">
+                <div style="text-align: center;">
+                    <p style="margin-bottom: 2rem; font-size: 1.2rem;">Ready for software engineering opportunities.</p>
+                    <a href="mailto:udaykongari26@gmail.com" class="btn btn-primary">Send a Message</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Designed & Developed by Kongari Uday Krishna &copy; 2024</p>
+    </footer>
 
     <script>
-        // Typing Effect
-        const typingText = document.getElementById('typing');
-        const roles = ['Full Stack Development', 'Artificial Intelligence', 'Software Architecture', 'Problem Solving'];
-        let roleIdx = 0;
-        let charIdx = 0;
-        let isDeleting = false;
+        // Scroll Reveal Animation
+        function reveal() {
+            var reveals = document.querySelectorAll(".reveal");
+            for (var i = 0; i < reveals.length; i++) {
+                var windowHeight = window.innerHeight;
+                var elementTop = reveals[i].getBoundingClientRect().top;
+                var elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add("active");
+                }
+            }
+        }
 
-        function type() {
-            const current = roles[roleIdx];
-            if (isDeleting) {
-                typingText.textContent = current.substring(0, charIdx - 1);
-                charIdx--;
+        window.addEventListener("scroll", reveal);
+        window.addEventListener("scroll", function() {
+            const topBtn = document.getElementById('scroll-top');
+            if (window.pageYOffset > 500) {
+                topBtn.classList.add('visible');
             } else {
-                typingText.textContent = current.substring(0, charIdx + 1);
-                charIdx++;
+                topBtn.classList.remove('visible');
+            }
+        });
+
+        // Initialize Hero
+        window.onload = () => {
+            reveal();
+            initAboutCanvas();
+        };
+
+        // About Section Visual - Animated Canvas
+        function initAboutCanvas() {
+            const canvas = document.getElementById('aboutCanvas');
+            const ctx = canvas.getContext('2d');
+            let particles = [];
+
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 5 + 1;
+                    this.speedX = Math.random() * 3 - 1.5;
+                    this.speedY = Math.random() * 3 - 1.5;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = '#EC4899';
+                    ctx.globalAlpha = 0.3;
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
+                }
             }
 
-            let typeSpeed = isDeleting ? 50 : 100;
-            if (!isDeleting && charIdx === current.length) {
-                typeSpeed = 2000;
-                isDeleting = true;
-            } else if (isDeleting && charIdx === 0) {
-                isDeleting = false;
-                roleIdx = (roleIdx + 1) % roles.length;
-                typeSpeed = 500;
+            for (let i = 0; i < 30; i++) {
+                particles.push(new Particle());
             }
-            setTimeout(type, typeSpeed);
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                particles.forEach(p => {
+                    p.update();
+                    p.draw();
+                });
+                requestAnimationFrame(animate);
+            }
+            animate();
         }
-
-        // Custom Mouse Glow
-        const glow = document.getElementById('glow');
-        document.addEventListener('mousemove', (e) => {
-            glow.style.left = e.clientX + 'px';
-            glow.style.top = e.clientY + 'px';
-        });
-
-        // Horizontal Scroll Interaction
-        const container = document.getElementById('container');
-        const sections = document.querySelectorAll('section');
-        const navDots = document.querySelectorAll('.nav-dot');
-
-        function scrollToSection(index) {
-            container.scrollTo({
-                left: window.innerWidth * index,
-                behavior: 'smooth'
-            });
-        }
-
-        container.addEventListener('scroll', () => {
-            const scrollPos = container.scrollLeft;
-            const index = Math.round(scrollPos / window.innerWidth);
-            
-            sections.forEach((s, i) => {
-                if (i === index) s.classList.add('active');
-                else s.classList.remove('active');
-            });
-
-            navDots.forEach((dot, i) => {
-                if (i === index) dot.classList.add('active');
-                else dot.classList.remove('active');
-            });
-        });
-
-        // Init
-        document.addEventListener('DOMContentLoaded', () => {
-            type();
-        });
     </script>
 </body>
 </html>
